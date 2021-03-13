@@ -1,6 +1,6 @@
-const Discord = require("discord.js");
-const bot = new Discord.Client();
-const token = require("./token.json").token;
+const {Client} = require("discord.js");
+const bot = new Client();
+const {token} = require("./token.json");
 
 bot.prefix = "!";
 bot.commands = require("./commands").get();
