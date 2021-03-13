@@ -9,7 +9,7 @@ class Help extends require("../../commandClass"){
     }
 
     run(message,bot,args){
-        const Discord = require("discord.js");
+        const {MessageEmbed} = require("discord.js");
         if(args.length > 0){
             let cmd = bot.commands.find(c => c.getName() === args[0]);
             if(args.length === 1 && cmd){
@@ -62,7 +62,7 @@ class Help extends require("../../commandClass"){
 
         function constructEmbed(fields, gotColor){
             let color = gotColor ? gotColor : 0xAABBCC;
-            return new Discord.MessageEmbed()
+            return new MessageEmbed()
                 .setAuthor("Called by " + message.member.displayName, message.author.displayAvatarURL())
                 .setTimestamp()
                 .setColor(color)
@@ -71,7 +71,7 @@ class Help extends require("../../commandClass"){
         }
 
         function invalidArgument(){
-            return new Discord.MessageEmbed()
+            return new MessageEmbed()
                 .setAuthor("Called by " + message.member.displayName, message.author.displayAvatarURL())
                 .setTimestamp()
                 .setColor(0xFF142C)
