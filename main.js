@@ -19,7 +19,7 @@ bot.on("message", message => {
     if(!message.content.startsWith(bot.prefix)) return;
     const args = message.content.slice(bot.prefix.length).split(" ");
     const command = args.shift().toLowerCase();
-    const cmd = bot.commands.find(c => c.getName() === command);
+    const cmd = bot.commands.get(command);
     if(cmd){ cmd.run(message,bot,args); }
 });
 

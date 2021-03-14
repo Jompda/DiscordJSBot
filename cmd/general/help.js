@@ -11,7 +11,7 @@ class Help extends require("../../commandClass"){
     run(message,bot,args){
         const {MessageEmbed} = require("discord.js");
         if(args.length > 0){
-            let cmd = bot.commands.find(c => c.getName() === args[0]);
+            let cmd = bot.commands.get(args[0]);
             if(args.length === 1 && cmd){
                 checkCommand(cmd);
             } else if(cmd){
@@ -21,7 +21,7 @@ class Help extends require("../../commandClass"){
             }
         } else {
             let str = "";
-            bot.commands.map(c => {
+            bot.commands.forEach(c => {
                 str += "**" + c.getName() + "** - " + c.getHelp().base + "\n";
             });
             let embed = constructEmbed([
