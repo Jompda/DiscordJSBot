@@ -11,8 +11,8 @@ bot.once("ready", () => console.log("Bot has started, using account:", bot.user.
 
 bot.on("message", message => {
     if (!message.guild) return;
-    if (message.content === `<@${bot.user.id}>` || message.content === `<@!${bot.user.id}>`){
-        return message.channel.send("Hi there! I'm " + message.guild.me.displayName + "!\nMy prefix is: " + bot.prefix);
+    if (message.content === `<@${bot.user.id}>` || message.content === `<@!${bot.user.id}>`) {
+        return message.channel.send(`Hi there! I'm ${message.guild.me.displayName}!\nMy prefix is: ${bot.prefix}`)
     }
 
     // Command parsing.
