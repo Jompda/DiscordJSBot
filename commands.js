@@ -1,23 +1,20 @@
+const { readdirSync, statSync } = require("fs")
+const { join } = require("path")
+const commandClass = require("./commandClass")
+
 module.exports = () => {
-    const {readdirSync} = require("fs")
     const commands = new Map()
-    readdirSync("./cmd").forEach(f => {
-        if(!f.endsWith(".js")) {
-            readdirSync("./cmd/" + f).forEach(ff => {
-                if(ff.endsWith(".js")) {
-                    let js = require("./cmd/" + f + "/" + ff)
-                    if(js instanceof require("./commandClass")) {
-                        commands.set(js.getName(), js)
-                    } else {
-                        console.log(`Non-command file in folder ${f}: ${ff}`)
-                    }
-                } else {
-                    console.log(`Non-command file in folder ${f}: ${ff}`)
-                }
-            })
-        } else {
-            console.log("JS files in the cmd folder, why???")
-        }
-    })
+    handleDirectory("./cmd")
     return commands
+    function handleDirectory(path) {
+        readdirSync(path).forEach(filename => {
+            const tempFilepath = join(path, filename)
+            const stat = statSync(tempFilepath)
+            if (stat.isDirectory()) return handleDirectory(tempFilepath)
+            if (!tempFilepath.endsWith(".js")) return console.log(`Non-command file under cmd folder: ${tempFilepath}`)
+            const command = require('./' + tempFilepath)
+            if (!(command instanceof commandClass)) return console.log(`Non-command file under cmd folder: ${tempFilepath}`)
+            commands.set(command.getName(), command)
+        })
+    }
 }
