@@ -3,7 +3,7 @@ const bot = new Client()
 const { token } = require("./token.json")
 
 bot.prefix = "!"
-bot.commands = require("./commands")()
+bot.commands = require("./commands")
 
 console.log("Bot starting up ^^")
 
